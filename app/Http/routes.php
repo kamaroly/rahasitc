@@ -29,8 +29,17 @@ Route::group(['prefix'=>'api'],function()
 			Route::get('/',['as'=>'api.v1.billpayment.index','uses'=>'\Rahasi\Http\Controllers\Api\BillPaymentApiController@show']);
 
 			/** Bill payment pay */
-			Route::post('/pay',['as'=>'api.v1.billpayment.pay','uses'=>'\Rahasi\Http\Controllers\Api\BillPaymentApiController@store']);
+			Route::any('/pay',['as'=>'api.v1.billpayment.pay','uses'=>'\Rahasi\Http\Controllers\Api\BillPaymentApiController@store']);
 		});
 	});
 
 });
+
+
+
+$router->get('/test',function()
+	{
+		$salt = sha1(time() . mt_rand());
+        $newKey = sha1(time() . mt_rand()); //substr($salt, 0, 40);
+		dd(strlen($salt),strlen($newKey),strlen(hash("sha256",time())),strlen('ch_17ICxf2eZvKYlo2CGYTb9FAZ'));
+	});

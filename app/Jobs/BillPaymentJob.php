@@ -3,6 +3,7 @@
 namespace Rahasi\Jobs;
 
 use Rahasi\Jobs\Job;
+use Rahasi\Traits\TransactionTrait;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -11,7 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class BillPaymentJob extends Job implements SelfHandling
 {
 
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels,TransactionTrait;
     /**  @var msisdn */
     public $msisdn;
 
@@ -28,7 +29,8 @@ class BillPaymentJob extends Job implements SelfHandling
     public $api_key_id;
 
     /**  @var _token */
-    public $_token;
+    public $transaction_id;
+
     /**
      * Create a new job instance.
      *
@@ -36,12 +38,12 @@ class BillPaymentJob extends Job implements SelfHandling
      */
     public function __construct($command)
     {
-        $this->msisdn           = $command->msisdn;                        
-        $this->company_id       = $command->company_id;                        
-        $this->reference        = $command->reference;                            
-        $this->amount           = $command->amount;
-        $this->api_key_id       = $command->api_key_id;
-        $this->_token           = $command->_token;                                        
+        $this->msisdn         = $command->msisdn;                        
+        $this->company_id     = $command->company_id;                        
+        $this->reference      = $command->reference;                            
+        $this->amount         = $command->amount;
+        $this->api_key_id     = $command->api_key_id;
+        $this->transaction_id = $this->generateId();                                        
     }
 
     /**
@@ -51,6 +53,7 @@ class BillPaymentJob extends Job implements SelfHandling
      */
     public function handle()
     {
-        return $this->msisdn;
+        dd($this);
+        return $this->transaction_id;
     }
 }
