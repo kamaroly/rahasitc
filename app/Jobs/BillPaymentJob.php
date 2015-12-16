@@ -53,7 +53,6 @@ class BillPaymentJob extends Job implements SelfHandling
      */
     public function handle()
     {
-        dd($this);
         return $this->transaction_id;
     }
 }
