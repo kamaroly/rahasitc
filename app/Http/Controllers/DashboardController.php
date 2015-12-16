@@ -9,6 +9,11 @@ use Rahasi\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
+    function __construct() {
+        $this->middleware('sentry.auth');
+        // parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return 'dashboard';
+        $title = 'dashboard';
+        return view('dashboard.index',compact($title));
     }
 
     /**

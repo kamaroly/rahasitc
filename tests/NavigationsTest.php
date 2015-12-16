@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class NavigationsTest extends TestCase
 {
+   
     /**
      * A basic test example.
      *
